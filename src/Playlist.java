@@ -5,7 +5,7 @@ public class Playlist {
     private String nome;
     private List<Musica> musicPlaylist = new ArrayList<>();
 
-    public Playlist(String nome){
+    public Playlist(String nome) {
         this.nome = nome;
     }
 
@@ -25,15 +25,29 @@ public class Playlist {
         this.musicPlaylist = musicPlaylist;
     }
 
-    // Metodo para add musicas
-    public void addMusicPlaylist(Musica musica){
+    // Método para adicionar músicas
+    public void addMusicPlaylist(Musica musica) {
         this.musicPlaylist.add(musica);
     }
 
     // Método para remover músicas
+    public void removeMusicPlaylist(Musica musica) {
+        this.musicPlaylist.remove(musica);
+    }
 
-    // Metodo para editar a posição da música
+    // Método para editar a posição da música
+    public void editarPosicaoMusica(int posicaoAtual, int novaPosicao) {
+        if (posicaoAtual >= 0 && posicaoAtual < musicPlaylist.size() &&
+            novaPosicao >= 0 && novaPosicao < musicPlaylist.size()) {
+            Musica musica = musicPlaylist.remove(posicaoAtual);
+            musicPlaylist.add(novaPosicao, musica);
+        } else {
+            System.out.println("Posições inválidas.");
+        }
+    }
 
-    // Metodo para excluir a playlist
-
+    // Método para excluir a playlist
+    public void excluirPlaylist() {
+        this.musicPlaylist.clear();
+    }
 }

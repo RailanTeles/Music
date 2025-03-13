@@ -35,6 +35,18 @@ public class Playlist {
         this.musicPlaylist.remove(musica);
     }
 
+    // Método para mostrar as músicas
+    public void mostrarMusicas() {
+        if (musicPlaylist.isEmpty()) {
+            System.out.println("A playlist está vazia.");
+        } else {
+            System.out.println("Músicas na playlist '" + nome + "':");
+            for (Musica musica : musicPlaylist) {
+                System.out.println(musica.getTitulo() + " - " + musica.getArtista());
+            }
+        }
+    }
+
     // Método para editar a posição da música
     public void editarPosicaoMusica(int posicaoAtual, int novaPosicao) {
         if (posicaoAtual >= 0 && posicaoAtual < musicPlaylist.size() &&

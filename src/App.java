@@ -15,6 +15,7 @@ public class App {
     static private List<Musica> listMusicas = new ArrayList<>();
     static private List<Artista> listArtista = new ArrayList<>();
     static private List<Album> listAlbum = new ArrayList<>();
+    static private List<Playlist> listPlaylist = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -184,20 +185,74 @@ public class App {
 
                         switch (opcao2) {
                             case 1 -> {
-                                // Criar Playlist
+                                System.out.print("Digite o nome da nova playlist: ");
+                                String nomePlay = scanner.nextLine();
+                                Playlist playlist = new Playlist(nomePlay);
+                                listPlaylist.add(playlist);
+                                System.out.println("Playlist '" + nomePlay + "' criada com sucesso!");
                             }
                             case 2 -> {
-                                // Editar Playlist
+                                // *Guilherme* Editar Playlist -> Colocar cases para adicionar músicas, excluir músicas e editar ordem das músicas (essas funções já existem, usa)
+                                
+                                if (listPlaylist.isEmpty()) {
+                                    System.out.println("Nenhuma playlist criada ainda!");
+                                    return; // *Guilherme* Tirar os returns, porque sai do script
+                                }
+                                System.out.println("SuasPlaylists:");
+                                for (int i = 0; i < listPlaylist.size(); i++) {
+                                    System.out.println((i + 1) + ": " + listPlaylist.get(i).getNome());
+                                }
+
+                                // *Guilherme* Colocar para escolher a playlist e depois aparecer as opções (Exluir musica, adicionar)
+                                // Todos esse métodos já existem
+                                // addMusicPlaylist : adicioanr
+                                // removeMusicPlaylist : remover
+                                // editarPosicaoMusica: mudar posição
+                                // Os 3 métodos estão na aba Playlist
                             }
                             case 3 -> {
-                                // Excluir Playlist
+                                if (listPlaylist.isEmpty()) {
+                                    System.out.println("Nenhuma playlist criada ainda!");
+                                    return; // *Guilherme* Tirar os returns, porque sai do script
+                                }
+                                System.out.println("SuasPlaylists:");
+                                for (int i = 0; i < listPlaylist.size(); i++) {
+                                    System.out.println((i + 1) + ": " + listPlaylist.get(i).getNome());
+                                }
+                                System.out.println("Selecione o número da Playlist que deseja deletar"); 
+                                // *Guilherme* Colocar um whiçe que fica rodando até ele colocar um valor que existe
+                                int nPlay = scanner.nextInt() - 1;
+                                scanner.nextLine();
+                                Playlist play = listPlaylist.get(nPlay);
+
+                                play.excluirPlaylist();
+                                listPlaylist.remove(play);
+                                System.out.println("Playlist deletada com sucesso");
+                                
                             }
+
                             case 4 -> {
-                                // Visualizar Playlist
+                                if (listPlaylist.isEmpty()) {
+                                    System.out.println("Nenhuma playlist criada ainda!");
+                                    return; // *Guilherme* Tirar os returns, porque sai do script
+                                }
+                                System.out.println("SuasPlaylists:");
+                                for (int i = 0; i < listPlaylist.size(); i++) {
+                                    System.out.println((i + 1) + ": " + listPlaylist.get(i).getNome());
+                                }
+                                System.out.println("Selecione o número da Playlist que deseja visualizar"); 
+                                // *Guilherme* Colocar um whiçe que fica rodando até ele colocar um valor que existe
+                                int nPlay = scanner.nextInt() - 1;
+                                scanner.nextLine();
+                                Playlist play = listPlaylist.get(nPlay);
+
+                                play.mostrarMusicas();
                             }
+
                             case 5 -> {
                                 System.out.println("Saindo...");
                             }
+                            
                             default -> {
                                 System.out.println("Opção inválida");
                                 opcao2 = 1;

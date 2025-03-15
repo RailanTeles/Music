@@ -47,6 +47,20 @@ public class Playlist {
         }
     }
 
+    // Mostrar as músicas com o número
+    public void mostrarMusicasID() {
+        int i = 1;
+        if (musicPlaylist.isEmpty()) {
+            System.out.println("A playlist está vazia.");
+        } else {
+            System.out.println("Músicas na playlist '" + nome + "':");
+            for (Musica musica : musicPlaylist) {
+                System.out.println(i + ": " +musica.getTitulo() + " - " + musica.getArtista());
+                i += 1;
+            }
+        }
+    }
+
     // Método para editar a posição da música
     public void editarPosicaoMusica(int posicaoAtual, int novaPosicao) {
         if (posicaoAtual >= 0 && posicaoAtual < musicPlaylist.size() &&

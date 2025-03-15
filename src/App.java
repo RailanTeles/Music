@@ -1,8 +1,10 @@
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class App {
+
     // Variáveis para coletar os dados do usuário
     static private String titulo;
     static private String artista;
@@ -31,7 +33,6 @@ public class App {
         // Musica musica4 = new Musica("Maré Cheia", "Ventos do Sul", "Oceano Azul", "MPB", 2020, 180.8);
         // listMusicas.add(musica4);
 
-
         while (true) {
             System.out.println("Selecione o que você quer fazer:");
             System.out.println("1 - Adicionar Música");
@@ -39,7 +40,7 @@ public class App {
             System.out.println("3 - Playlists");
             System.out.println("4 - Sair");
             opcao = scanner.nextInt();
-            scanner.nextLine(); 
+            scanner.nextLine();
 
             switch (opcao) {
                 case 1 -> {
@@ -57,11 +58,11 @@ public class App {
 
                     System.out.println("Ano de Lançamento:");
                     anoLancamento = scanner.nextInt();
-                    scanner.nextLine(); 
+                    scanner.nextLine();
 
-                    System.out.println("Duração (em minutos):");
+                    System.out.println("Duração (em segundos):");
                     duracao = scanner.nextDouble();
-                    scanner.nextLine(); 
+                    scanner.nextLine();
 
                     Artista autor = null;
                     boolean artistaEncontrado = false;
@@ -112,7 +113,7 @@ public class App {
                     System.out.println("4 - Por Gênero");
                     System.out.println("5 - Por Ano de Lançamento");
                     int opcaoBusca = scanner.nextInt();
-                    scanner.nextLine(); 
+                    scanner.nextLine();
 
                     System.out.println("Digite o termo de busca:");
                     String termoBusca = scanner.nextLine();
@@ -126,28 +127,28 @@ public class App {
                                     resultados.add(musica);
                                 }
                             }
-                    }
+                        }
                         case 2 -> {
                             for (Musica musica : listMusicas) {
                                 if (musica.getArtista().equalsIgnoreCase(termoBusca)) {
                                     resultados.add(musica);
                                 }
                             }
-                    }
+                        }
                         case 3 -> {
                             for (Musica musica : listMusicas) {
                                 if (musica.getAlbum().equalsIgnoreCase(termoBusca)) {
                                     resultados.add(musica);
                                 }
                             }
-                    }
+                        }
                         case 4 -> {
                             for (Musica musica : listMusicas) {
                                 if (musica.getGenero().equalsIgnoreCase(termoBusca)) {
                                     resultados.add(musica);
                                 }
                             }
-                    }
+                        }
                         case 5 -> {
                             int anoBusca = Integer.parseInt(termoBusca);
                             for (Musica musica : listMusicas) {
@@ -155,8 +156,9 @@ public class App {
                                     resultados.add(musica);
                                 }
                             }
-                    }
-                        default -> System.out.println("Opção inválida.");
+                        }
+                        default ->
+                            System.out.println("Opção inválida.");
                     }
 
                     if (resultados.isEmpty()) {
@@ -184,75 +186,163 @@ public class App {
                         scanner.nextLine(); // Limpar o buffer
 
                         switch (opcao2) {
-                            case 1 -> {
+                            case 1 -> { // Criar Playlist
                                 System.out.print("Digite o nome da nova playlist: ");
                                 String nomePlay = scanner.nextLine();
                                 Playlist playlist = new Playlist(nomePlay);
                                 listPlaylist.add(playlist);
                                 System.out.println("Playlist '" + nomePlay + "' criada com sucesso!");
                             }
-                            case 2 -> {
-                                // *Guilherme* Editar Playlist -> Colocar cases para adicionar músicas, excluir músicas e editar ordem das músicas (essas funções já existem, usa)
-                                
+                            case 2 -> { // Editar Playlist
                                 if (listPlaylist.isEmpty()) {
                                     System.out.println("Nenhuma playlist criada ainda!");
-                                    return; // *Guilherme* Tirar os returns, porque sai do script
+                                    break;
                                 }
-                                System.out.println("SuasPlaylists:");
+
+                                System.out.println("Suas Playlists:");
                                 for (int i = 0; i < listPlaylist.size(); i++) {
                                     System.out.println((i + 1) + ": " + listPlaylist.get(i).getNome());
                                 }
 
-                                // *Guilherme* Colocar para escolher a playlist e depois aparecer as opções (Exluir musica, adicionar)
-                                // Todos esse métodos já existem
-                                // addMusicPlaylist : adicioanr
-                                // removeMusicPlaylist : remover
-                                // editarPosicaoMusica: mudar posição
-                                // Os 3 métodos estão na aba Playlist
+                                System.out.print("Escolha a playlist para editar (por número): ");
+                                int nPlay = scanner.nextInt();
+                                scanner.nextLine();
+
+                                if (nPlay >= 0 & nPlay <= listPlaylist.size()) {
+                                    nPlay = nPlay - 1;
+                                    Playlist playlist = listPlaylist.get(nPlay);
+
+                                    System.out.println("Selecione uma ação:");
+                                    System.out.println("1 - Adicionar música");
+                                    System.out.println("2 - Remover música");
+                                    System.out.println("3 - Editar ordem da música");
+                                    System.out.println("4 - Voltar");
+
+                                    int acao = scanner.nextInt();
+                                    scanner.nextLine();
+
+                                    switch (acao) {
+                                        case 1 -> {  // Adicionar música
+                                            System.out.print("Digite o título da música para adicionar: ");
+                                            String musicaAdd = scanner.nextLine();
+                                            boolean verify = false;
+                                            for (Musica musica : listMusicas) {
+                                                if (musica.getTitulo().equals(musicaAdd)) {
+                                                    playlist.addMusicPlaylist(musica);
+                                                    System.out.println("Música '" + musica.getTitulo() + "' adicionada com sucesso");
+                                                    verify = true;
+                                                }
+                                            }
+                                            if (!verify) {
+                                                System.out.println("Música não encontrada!");
+                                            }
+                                            break;
+                                        }
+
+                                        case 2 -> { // Remover música
+                                            if(playlist.getMusicPlaylist().isEmpty()){
+                                                System.out.println("Não há músicas na Playlist '" + playlist.getNome() + "'");
+                                                break;
+                                            }
+                                            playlist.mostrarMusicas();
+                                            System.out.print("Digite o título da música para remover: ");
+                                            String musicaRemove = scanner.nextLine();
+                                            boolean verify = false;
+                                            for (Musica musica : listMusicas) {
+                                                if (musica.getTitulo().equals(musicaRemove)) {
+                                                    playlist.removeMusicPlaylist(musica);
+                                                    System.out.println("A música '" + musica.getTitulo() + "' foi removida com sucesso");
+                                                    verify = true;
+                                                }
+                                            }
+                                            if (!verify) {
+                                                System.out.println("Música não encontrada!");
+                                            }
+                                            break;
+                                        }
+
+                                        case 3 -> { // Editar posição
+                                            if(playlist.getMusicPlaylist().size() <= 1){
+                                                System.out.println("Há apenas uma música na playlist '" + playlist.getNome() + "', logo não é possível mudar a posição");
+                                                break;
+                                            }
+                                            playlist.mostrarMusicasID();
+                                            System.out.print("Escolha a posição de origem da música que quer trocar: ");
+                                            int posicaoOrigem = scanner.nextInt();
+                                            System.out.print("Escolha a posição de destino da música que quer trocar: ");
+                                            int posicaoDestino = scanner.nextInt();
+                                            playlist.editarPosicaoMusica(posicaoOrigem - 1, posicaoDestino - 1);
+                                            break;
+                                        }
+
+                                        case 4 -> {
+                                            System.out.println("Voltando...");
+                                            break;
+                                        }
+
+                                        default -> {
+                                            System.out.println("Opção inválida");
+                                            System.out.println("Voltando...");
+                                        }
+                                    }
+
+                                } else {
+                                    System.out.print("Número da Playlist inválido");
+                                    break;
+                                }
                             }
+
                             case 3 -> {
                                 if (listPlaylist.isEmpty()) {
                                     System.out.println("Nenhuma playlist criada ainda!");
-                                    return; // *Guilherme* Tirar os returns, porque sai do script
+                                    break;
                                 }
                                 System.out.println("SuasPlaylists:");
                                 for (int i = 0; i < listPlaylist.size(); i++) {
                                     System.out.println((i + 1) + ": " + listPlaylist.get(i).getNome());
                                 }
-                                System.out.println("Selecione o número da Playlist que deseja deletar"); 
-                                // *Guilherme* Colocar um whiçe que fica rodando até ele colocar um valor que existe
+                                System.out.println("Selecione o número da Playlist que deseja deletar");
                                 int nPlay = scanner.nextInt() - 1;
                                 scanner.nextLine();
-                                Playlist play = listPlaylist.get(nPlay);
 
-                                play.excluirPlaylist();
-                                listPlaylist.remove(play);
-                                System.out.println("Playlist deletada com sucesso");
-                                
+                                if(nPlay >= 0 & nPlay < listPlaylist.size()){
+                                    Playlist play = listPlaylist.get(nPlay);
+                                    play.excluirPlaylist();
+                                    listPlaylist.remove(play);
+                                    System.out.println("Playlist deletada com sucesso");
+                                    
+                                } else {
+                                    System.out.println("Index da playlist inválido");
+                                }
+                                break;
                             }
 
                             case 4 -> {
                                 if (listPlaylist.isEmpty()) {
                                     System.out.println("Nenhuma playlist criada ainda!");
-                                    return; // *Guilherme* Tirar os returns, porque sai do script
+                                    break;
                                 }
                                 System.out.println("SuasPlaylists:");
                                 for (int i = 0; i < listPlaylist.size(); i++) {
                                     System.out.println((i + 1) + ": " + listPlaylist.get(i).getNome());
                                 }
-                                System.out.println("Selecione o número da Playlist que deseja visualizar"); 
-                                // *Guilherme* Colocar um whiçe que fica rodando até ele colocar um valor que existe
+                                System.out.println("Selecione o número da Playlist que deseja visualizar");
                                 int nPlay = scanner.nextInt() - 1;
                                 scanner.nextLine();
-                                Playlist play = listPlaylist.get(nPlay);
 
-                                play.mostrarMusicas();
+                                if(nPlay >= 0 & nPlay < listPlaylist.size()){
+                                    Playlist play = listPlaylist.get(nPlay);
+                                    play.mostrarMusicas();
+                                } else {
+                                    System.out.println("Index da playlist inválido");
+                                }
+                                break;   
                             }
 
                             case 5 -> {
                                 System.out.println("Saindo...");
                             }
-                            
+
                             default -> {
                                 System.out.println("Opção inválida");
                                 opcao2 = 1;

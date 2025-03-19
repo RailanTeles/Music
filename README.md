@@ -4,5 +4,5 @@ O sistema permitirá aos usuários organizar suas coleções de músicas, criar 
 
 
 ## Objetivos
-Desenvolver um sistema robusto e eficiente para gerenciamento de músicas.
+Desenvolver um sistema robusto e eficiente para gerenciamento de músicas. <br/>
 Utilizar os conceitos de orientação a objetos para criar um código modular e reutilizável.
